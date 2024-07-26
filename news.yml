@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: n-news-service
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://n-news-db:5432/n-news-db
+    username: postgres
+    password: mitrandir
+    driver-class-name: org.postgresql.Driver
+
+jwt:
+  key: Nikon1234
+  bearer: 'Bearer '
+  begin-index: 7
+
+server:
+  port: 8080
+service:
+  user-domain: http://n-user-service:8080
+
+
+

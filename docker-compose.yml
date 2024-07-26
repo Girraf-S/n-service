@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  n-user-db:
+    image: postgres
+    container_name: n-user-db
+    environment:
+      POSTGRES_PASSWORD: mitrandir
+      POSTGRES_DB: n-user-db
+    ports:
+      - "5433:5432"
+    volumes:
+      - n-user-db-data:/var/lib/postgresql/data
+      - ./init-user-db.sql:/docker-entrypoint-initdb.d/init-user-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+  n-news-db:
+    image: postgres
+    container_name: n-news-db
+    environment:
+      POSTGRES_PASSWORD: mitrandir
+      POSTGRES_DB: n-news-db
+    ports:
+      - "5434:5432"
+    volumes:
+      - n-news-db-data:/var/lib/postgresql/data
+      - ./init-news-db.sql:/docker-entrypoint-initdb.d/init-news-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+  n-user-service:
+    image: n-user-service-image
+    container_name: n-user-service
+    depends_on:
+      n-user-db:
+        condition: service_healthy
+    volumes:
+      - ./user.yml:/app/application.yml:ro
+    ports:
+      - "8081:8080"
+  n-news-service:
+    image: n-news-service-image
+    container_name: n-news-service
+    depends_on:
+      n-news-db:
+        condition: service_healthy
+    volumes:
+      - ./news.yml:/app/application.yml:ro
+    ports:
+      - "8082:8080"
+volumes:
+  n-user-db-data:
+  n-news-db-data:
