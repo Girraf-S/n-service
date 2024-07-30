@@ -48,6 +48,16 @@ services:
       - ./news.yml:/app/application.yml:ro
     ports:
       - "8082:8080"
+  n-mail-service:
+    image: n-mail-service-image
+    container_name: n-mail-service
+    depends_on:
+      n-user-db:
+        condition: service_healthy
+    volumes:
+      - ./mail.yml:/app/application.yml:ro
+    ports:
+      - "8083:8080"
 volumes:
   n-user-db-data:
   n-news-db-data:

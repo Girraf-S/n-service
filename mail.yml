@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: n-mail-service
+  mail:
+    host: smtp.gmail.com
+    username: hsciapan@gmail.com
+    password: "crzhhhizdfvljrld"
+    admin-mail: hirrafes@gmail.com
+    port: 587
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: false
+          ssl:
+            trust: smtp.gmail.com
+
+jwt:
+  key: Nikon1234
+  bearer: 'Bearer '
+  begin-index: 7
+
+
+service:
+  user-domain: http://n-user-service:8080
+server:
+  port: 8080
+  domain: http://n-mail-service:8080/

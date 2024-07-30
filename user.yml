@@ -10,22 +10,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
-    open-in-view: true
-  mail:
-    host: smtp.gmail.com
-    username: hsciapan@gmail.com
-    password: "crzhhhizdfvljrld"
-    admin-mail: hirrafes@gmail.com
-    port: 587
-    protocol: smtp
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: false
-          ssl:
-            trust: smtp.gmail.com
+    open-in-view: false
   datasource:
     url: jdbc:postgresql://n-user-db:5432/n-user-db
     username: postgres
@@ -41,6 +26,10 @@ jwt:
 server:
   port: 8080
   domain: http://n-user-service:8080/
+
+service:
+  mail-service:
+    http://n-mail-service:8080/
 
 security:
   encoder:
